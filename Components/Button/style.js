@@ -1,11 +1,11 @@
 import { StyleSheet } from "react-native";
-import { getFontFamily } from "../../../assets/fonts/helper";
-import { horizontalScale, scaleFontSize, verticalScale } from "../../../assets/styles/scaling";
+import { getFontFamily } from "../../assets/fonts/helper";
+import { horizontalScale, scaleFontSize, verticalScale } from "../../assets/styles/scaling";
 
 const style =  StyleSheet.create({
 
     button:{
-        backgroundColor:'#6930c3',
+        backgroundColor:'#6930c3ff',
         height: verticalScale(55),
         justifyContent:'center',
         borderRadius: horizontalScale(50),
