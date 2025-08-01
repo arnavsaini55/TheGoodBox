@@ -1,37 +1,29 @@
 import React from "react";
-import { SafeAreaView, Text, View, } from "react-native";
+import { Pressable, SafeAreaView, Text, View, } from "react-native";
 import globalStyle from "../../assets/styles/globalStyle";
 import Header from "../../Components/Header/Header";
-import Button from "../../Components/Button/Button";
-import { FontAwesomeIcon } from '@fortawesome/react-native-fontawesome';
-import Tab from "../../Components/Tab/Tab";
-import Badge from "../../Components/Badge/Badge";
-import Style from "./Style";
-import { faSearch } from "@fortawesome/free-solid-svg-icons/faSearch";
-import Search from "../../Components/Search/Search";
-import DonationItem from "../../Components/SingleDonationItem/SingleDonationItem";
-import { horizontalScale } from "../../assets/styles/scaling";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { updateFirstName } from "../../redux/reducers/User";
 
 
-const Home = () =>{
-    return<SafeAreaView style={[globalStyle.backgroudWhite,globalStyle.flex]} >       
-          {/* <Search 
-        onSearch={value => {
-          console.log(value);
-        }}
-      /> */}
-          <View  style={{
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          paddingHorizontal: horizontalScale(24),
-        }}>
-     <DonationItem uri={'https://imgs.search.brave.com/8UIi4D0gJbxs8H4eLVk6dD4StWKYpmE0H73UA53uhjw/rs:fit:860:0:0:0/g:ce/aHR0cHM6Ly90My5m/dGNkbi5uZXQvanBn/LzExLzY5LzQxLzE2/LzM2MF9GXzExNjk0/MTE2ODlfaGI5eEpv/MndHeGlrSVQ0V1ZJ/TjE4Z3hpYThtQmhQ/QkEuanBn'} 
-     badgeTitle={"Environment"} donationTitle ={"Tree Cactus"} Price = {51}/>
-     
-         </View>  
-           
-           
+const Home = () => {
+  // Using the useSelector hook to select the "user" slice of the store
+  // This will return the user object containing firstName, lastName and userId fields
+  const user = useSelector(state => state.user);
+  const dispatch = useDispatch();
+  console.log(user);
+  return (
+    <SafeAreaView style={[globalStyle. backgroudWhite, globalStyle.flex]}>
+      <Header title={user.firstName + ' ' + user.lastName} />
+      <Pressable onPress={() => dispatch(updateFirstName({firstName: "Ayush"}))
+      }>
+        <Text>
+          press me to change name
+        </Text>
+      </Pressable>
     </SafeAreaView>
-}
+)}
 
 export default Home;
