@@ -32,7 +32,8 @@ return (
 Header.default ={
     title:'',
     types:'1',
-    color: '#000000'
+    color: '#000000',
+    
 }
 Header.PropTypes = {
     title: PropTypes.string,

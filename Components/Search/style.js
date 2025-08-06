@@ -22,6 +22,8 @@ const style = StyleSheet.create({
     backgroundColor: '#F3F5F9',
     height: verticalScale(50),
     borderRadius: horizontalScale(15),
+    marginTop:verticalScale(0)
+    
   },
 });
 
