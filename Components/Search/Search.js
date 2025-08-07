@@ -25,12 +25,14 @@ const Search = props => {
         icon={faSearch}
         color={'#882dffff'}
         size={scaleFontSize(22)}
+        
       />
       <TextInput
         ref={textInputRef}
         style={style.searchInput}
         value={search}
         onChangeText={value => handleSearch(value)}
+        placeholder='Search'
       />
     </Pressable>
   );
