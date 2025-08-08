@@ -15,28 +15,28 @@ const DonationItem = (props) => {
         <View style={style.badge}>
           <Badge title={props.badgeTitle} />
         </View>
-        <Image resizeMode={'contain'}
+        <Image 
+         resizeMode={'cover'}
          source={{ uri: props.uri }} style={style.Image} />
       </View>
       <View style ={style.donationInformation}>
       <Header title={props.donationTitle} type={3} color={'#0A043C'} />
-      <Header title={'$' + parseFloat(props.Price).toFixed(2)} type={3} color={'#6930c3ff'} />
+      <Header title={'$' + parseFloat(props.price).toFixed(2)} type={3} color={'#6930c3ff'} />
       </View>
     </Pressable>
   );
 };
 DonationItem.defaultProps = {
-  onPress: () => {}
-}
-
+  onPress: () => {},
+};
 
 
 DonationItem.propTypes = {
-    donationItemId: PropTypes.number.isRequired,
-
+   donationItemId: PropTypes.number.isRequired,
   uri: PropTypes.string.isRequired,
   badgeTitle: PropTypes.string.isRequired,
   donationTitle: PropTypes.string.isRequired,
+  // Price: PropTypes.number.isRequired,
   Price: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   onPress: PropTypes.func,
 };

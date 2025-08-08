@@ -6,7 +6,7 @@ import {
 } from '../../assets/styles/scaling';
 
 const style = StyleSheet.create({
-  Badge: {
+  badge: {
     backgroundColor: '#30c3b5',
     height: verticalScale(22),
     justifyContent: 'center',
@@ -20,6 +20,7 @@ const style = StyleSheet.create({
     lineHeight: scaleFontSize(17),
     color: '#FFFFFF',
     textAlign: 'center',
+    // backgroundColor: '#30c3b5',
   }
 });
 

@@ -1,19 +1,18 @@
 import React, {useRef, useState} from 'react';
-import { Text, View} from 'react-native';
+import {View, Text} from 'react-native';
 import PropTypes from 'prop-types';
 
 import style from './style';
 import {horizontalScale} from '../../assets/styles/scaling';
-const Badge = props => {
+const badge = props => {
   const [width, setWidth] = useState(0);
   const textRef = useRef(null);
   const paddingHorizontal = 10;
-  const tabWidth = {
+  const badgeWidth = {
     width: horizontalScale(paddingHorizontal * 2 + width),
   };
   return (
-    <View
-      style={[style.Badge,  tabWidth]}>
+    <View disabled={props.isInactive} style={[style.badge, badgeWidth]}>
       <Text
         onTextLayout={event => {
           setWidth(event.nativeEvent.lines[0].width);
@@ -26,11 +25,8 @@ const Badge = props => {
   );
 };
 
-
-
-Badge.propTypes = {
+badge.propTypes = {
   title: PropTypes.string.isRequired,
- 
 };
 
-export default Badge;
+export default badge;
