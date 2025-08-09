@@ -4,7 +4,7 @@ import { horizontalScale, verticalScale } from "../../assets/styles/scaling";
 
 const style = StyleSheet.create({
     Image:{
-        width: horizontalScale(155),
+        width: '100%',
         height: verticalScale(170),
         borderRadius: horizontalScale(20),
     },

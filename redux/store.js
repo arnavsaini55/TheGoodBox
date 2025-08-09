@@ -2,49 +2,44 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // Importing the persistReducer and persistStore functions from the redux-persist library
-import {persistReducer, persistStore} from 'redux-persist';
+import { persistReducer, persistStore } from 'redux-persist';
 
 // Importing the combineReducers and configureStore functions from the Redux Toolkit
-import {combineReducers, configureStore} from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@reduxjs/toolkit';
 
-// Importing the User reducer from the ./reducers/User file
+// Import reducers
 import User from './reducers/User';
 import Categories from './reducers/Categories';
 import Donation from './reducers/Donation';
+import Theme from './reducers/Theme';
 
-// Creating a rootReducer that combines all reducers in the app
+// Combine all reducers into one root reducer
 const rootReducer = combineReducers({
- 
   user: User,
   categories: Categories,
   donation: Donation,
+  theme: Theme,
 });
 
-// Configuring the redux-persist library to persist the root reducer with AsyncStorage
-const configuration = {
+// Redux Persist configuration
+const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
   version: 1,
 };
 
-// Creating a new persisted reducer with the configuration and root reducer
-const persistedReducer = persistReducer(configuration, rootReducer);
+// Wrap rootReducer with persistReducer
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
-// Creating a new Redux store using the configureStore function
-// We're passing in the persisted reducer as the main reducer for the store
+// Create Redux store
 const store = configureStore({
   reducer: persistedReducer,
-
-  // Using the getDefaultMiddleware function from the Redux Toolkit to add default middleware to the store
-  // We're passing in an object with the serializableCheck key set to false to avoid serialization errors with non-serializable data
-  middleware: getDefaultMiddleware => {
-    return getDefaultMiddleware({
-      serializableCheck: false,
-    });
-  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false, // Disable serializable check for redux-persist
+    }),
 });
 
-// Exporting the store to be used in the app
-// Also exporting the persistor object created with the persistStore function from redux-persist
-export default store;
+// Create persistor
 export const persistor = persistStore(store);
+export default store;

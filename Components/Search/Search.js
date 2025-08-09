@@ -4,12 +4,16 @@ import PropTypes from 'prop-types';
 import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faSearch} from '@fortawesome/free-solid-svg-icons';
 import {scaleFontSize} from '../../assets/styles/scaling';
+import { useSelector } from 'react-redux';
+import { getTheme } from '../../assets/styles/theme';
 
 import style from './style';
 
 const Search = props => {
   const textInputRef = useRef(null);
   const [search, setSearch] = useState('');
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
+  const theme = getTheme(isDarkMode);
 
   const handleFocus = () => {
     textInputRef.current.focus();
@@ -19,20 +23,30 @@ const Search = props => {
     setSearch(searchValue);
     props.onSearch(searchValue);
   };
+  
   return (
-    <Pressable style={style.searchInputContainer} onPress={handleFocus}>
+    <Pressable 
+      style={[
+        style.searchInputContainer, 
+        { backgroundColor: theme.secondaryBackground }
+      ]} 
+      onPress={handleFocus}
+    >
       <FontAwesomeIcon 
         icon={faSearch}
-        color={'#882dffff'}
+        color={theme.primary}
         size={scaleFontSize(22)}
-        
       />
       <TextInput
         ref={textInputRef}
-        style={style.searchInput}
+        style={[
+          style.searchInput, 
+          { color: theme.textPrimary }
+        ]}
         value={search}
         onChangeText={value => handleSearch(value)}
         placeholder='Search'
+        placeholderTextColor={theme.textTertiary}
       />
     </Pressable>
   );
