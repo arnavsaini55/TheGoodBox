@@ -1,6 +1,7 @@
 import SingleDonationItem from "../screens/SingleDonation/SingleDonationItem";
 
 export const Routes = {
-    Home:'Home',
+    Login: 'Login',
+    Home: 'Home',
     SingleDonationItem: 'SingleDonationItem'
 }
