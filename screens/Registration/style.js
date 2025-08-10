@@ -29,6 +29,11 @@ const styles = StyleSheet.create({
         fontSize: scaleFontSize(10),
         fontFamily: getFontFamily('Inter-Regular',100),
     },
+    button:{
+        marginLeft: horizontalScale(14),
+    marginTop: verticalScale(7),
+  },
+    
 });
 
 export default styles;

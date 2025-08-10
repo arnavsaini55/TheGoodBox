@@ -19,6 +19,7 @@ const Input = (props) => {
           setValue(val);
           props.onChangeText(val);
         }}
+        
       />
     </View>
   );
