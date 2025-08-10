@@ -11,14 +11,12 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import User from './reducers/User';
 import Categories from './reducers/Categories';
 import Donation from './reducers/Donation';
-import Theme from './reducers/Theme';
 
 // Combine all reducers into one root reducer
 const rootReducer = combineReducers({
   user: User,
   categories: Categories,
   donation: Donation,
-  theme: Theme,
 });
 
 // Redux Persist configuration

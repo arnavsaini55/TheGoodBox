@@ -20,16 +20,12 @@ import { verticalScale } from "../../assets/styles/scaling";
 import Tab from "../../Components/Tab/Tab";
 import { Routes } from "../../navigation/Routes";
 import { updateToupdatedStateId } from "../../redux/reducers/Donation";
-import ToggleSwitch from "../../Components/ToggleSwitch/ToggleSwitch";
-import { getTheme } from "../../assets/styles/theme";
 
-const Home = ({navigation}) => {
+const Home = ({ navigation, route }) => {
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const categories = useSelector((state) => state.categories);
   const donation = useSelector((state) => state.donation);
-  const isDarkMode = useSelector((state) => state.theme?.isDarkMode || false);
-  const theme = getTheme(isDarkMode);
 
   const [donationItem, setDonationItem] = useState([]);
   const [categoryPage, setCategoryPage] = useState(1);
@@ -70,21 +66,17 @@ const Home = ({navigation}) => {
   };
 
   return (
-    <SafeAreaView style={[globalStyle.flex, { backgroundColor: theme.backgroundColor }]}>
+    <SafeAreaView style={globalStyle.flex}>
       <ScrollView>
         <View>
-          {/* Header and greeting with toggle switch */}
-          <View style={[style.headerContainer, { backgroundColor: theme.backgroundColor }]}>
+          {/* Header and greeting */}
+          <View style={style.headerContainer}>
             <View>
-              <Text style={[style.HelloContainer, { color: theme.textSecondary }]}>Hello,</Text>
+              <Text style={style.HelloContainer}>Hello,</Text>
               <View style={style.userName}>
-                <Header
-                  title={`${user.firstName} ${user.lastName[0]}. 👋🏻`}
-                  color={theme.textPrimary}
-                />
+                <Header title={`${user.firstName} ${user.lastName[0]}. 👋🏻`} />
               </View>
             </View>
-            <ToggleSwitch />
           </View>
 
           {/* Search bar */}
@@ -103,7 +95,7 @@ const Home = ({navigation}) => {
 
           {/* Category header */}
           <View style={style.categoryHeader}>
-            <Header title="Selected Categories" type={2} color={theme.textPrimary} />
+            <Header title="Selected Categories" type={2} />
           </View>
 
           {/* Categories Tab List */}
@@ -115,61 +107,65 @@ const Home = ({navigation}) => {
                   return;
                 }
                 console.log(
-                  'User has reached the end and we are getting more data for page number ',
-                  categoryPage,
+                  "User has reached the end and we are getting more data for page number ",
+                  categoryPage
                 );
                 setIsLoadingCategories(true);
                 let newData = pagination(
                   categories.categories,
                   categoryPage,
-                  categoryPageSize,
+                  categoryPageSize
                 );
                 if (newData.length > 0) {
-                  setCategoryList(prevState => [...prevState, ...newData]);
-                  setCategoryPage(prevState => prevState + 1);
+                  setCategoryList((prevState) => [...prevState, ...newData]);
+                  setCategoryPage((prevState) => prevState + 1);
                 }
                 setIsLoadingCategories(false);
               }}
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            data={categoryList}
-            renderItem={({item}) =>(
-              <View style={style.categoryItem} key={item.categoryId}>
-                <Tab
-                tabId={item.categoryId}
-                onPress={value => dispatch(updateSelectedCategoryId(value))}
-                title={item.name}
-                isInactive={item.categoryId !== categories.selectedCategorId} />
-              </View>
-            )} >            
-            </FlatList>
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={categoryList}
+              renderItem={({ item }) => (
+                <View style={style.categoryItem} key={item.categoryId}>
+                  <Tab
+                    tabId={item.categoryId}
+                    onPress={(value) => dispatch(updateSelectedCategoryId(value))}
+                    title={item.name}
+                    isInactive={item.categoryId !== categories.selectedCategorId}
+                  />
+                </View>
+              )}
+            />
           </View>
 
           {/* Donation Items */}
           {donationItem.length > 0 && (
-          
-            <View style={[style.donationItemsContainer, { backgroundColor: theme.backgroundColor }]}>
-              {donationItem.map(value => (
-                
-      <View key={value.donationItemId} style={style.Container}>           
-  <DonationItem 
-    onPress={selectedDonationId =>  {
-      dispatch(updateToupdatedStateId(selectedDonationId))
-      navigation.navigate(Routes.SingleDonationItem)
-    }}
-    donationItemId={value.donationItemId}
-    uri={value.image}
-    donationTitle={value.name}
-    badgeTitle={
-  categories.categories.find(
-    val => val.categoryId === categories.selectedCategorId
-  )?.name 
-}             
-    price={parseFloat(value.price)}
-  />
-  </View>
-))}  
-   </View>
+            <View style={style.donationItemsContainer}>
+              {donationItem.map((value) => {
+                const CategoryInformstion =categories.categories.find(
+                  (val) => val.categoryId === categories.selectedCategorId
+                )//this is not to duplicate the code again and again
+                return (
+                  <View key={value.donationItemId} style={style.Container}>
+                    <DonationItem
+                      onPress={(selectedDonationId) => {
+                        dispatch(updateToupdatedStateId(selectedDonationId));
+                        navigation.navigate(Routes.SingleDonationItem, {
+                          CategoryInformstion,
+                        });
+                      }}
+                      donationItemId={value.donationItemId}
+                      uri={value.image}
+                      donationTitle={value.name}
+                      badgeTitle={
+                       CategoryInformstion.name
+                      }
+                      price={parseFloat(value.price)}
+                    />
+                  </View>
+                );
+              })}
+            </View>
           )}
         </View>
       </ScrollView>
