@@ -16,7 +16,7 @@ import Donation from './reducers/Donation';
 const rootReducer = combineReducers({
   user: User,
   categories: Categories,
-  donation: Donation,
+  donations: Donation,
 });
 
 // Redux Persist configuration

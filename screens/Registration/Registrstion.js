@@ -6,6 +6,7 @@ import Header from "../../Components/Header/Header";
 import Button from "../../Components/Button/Button";
 import BackButton from "../../Components/BackButton/BackButton";
 import Routes from "../../navigation/Routes"; // ✅ Changed to default import
+import { createUser } from "../../api/user";
 
 const Registration = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -50,9 +51,9 @@ const Registration = ({ navigation }) => {
           />
         </View>
 
-        <Pressable style={style.buttonContainer}>
-          <Button title={'Start Something Good'} />
-        </Pressable>
+       <Button style={style.buttonContainer}
+          title={'Start Something Good'} onPress={async () => await createUser(fullname, email, password)} 
+           />
       </View>
     </SafeAreaView>
   );

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "675786355549",
+    "project_id": "thegoodbox-e3730",
+    "storage_bucket": "thegoodbox-e3730.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:675786355549:android:d5721bf19326c3a5782eb4",
+        "android_client_info": {
+          "package_name": "com.thegoodbox"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhYaM5AvQJgzTL3ugvDsb--gvGxqUCTbY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
